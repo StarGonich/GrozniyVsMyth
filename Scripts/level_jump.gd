@@ -50,7 +50,6 @@ func spawn_platform(height):
 		0: 
 			platform = static_platform.instantiate()
 			get_tree().root.add_child(platform)
-			
 		1:
 			platform = move_platform.instantiate()
 			get_tree().root.add_child(platform)

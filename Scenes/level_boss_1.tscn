@@ -1,5 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc8ifufjja6kf"]
+[gd_scene load_steps=8 format=3 uid="uid://dc8ifufjja6kf"]
 
+[ext_resource type="AudioStream" uid="uid://dc5h6yff1kp2b" path="res://Music/эпикч.mp3" id="1_hbk73"]
+[ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="1_u3e8r"]
 [ext_resource type="PackedScene" uid="uid://tlmgsasq1sj4" path="res://Scenes/parallax_background_boss1.tscn" id="1_w144x"]
 [ext_resource type="PackedScene" uid="uid://bhci4pd85xqr4" path="res://Scenes/groznui_fait.tscn" id="2_hhq5y"]
 [ext_resource type="PackedScene" uid="uid://jso3j7yi2s3" path="res://Scenes/mohovik.tscn" id="4_0kpxo"]
@@ -9,6 +11,10 @@
 size = Vector2(3722.5, 78)
 
 [node name="Level_Boss1" type="Node2D"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_hbk73")
+autoplay = true
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_w144x")]
 
@@ -30,3 +36,7 @@ collision_layer = 1
 [node name="Shishimora" parent="." instance=ExtResource("4_2hxid")]
 position = Vector2(1630, 507)
 collision_layer = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("1_u3e8r")]

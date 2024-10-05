@@ -1,5 +1,10 @@
 extends Control
 
+@onready var settings = $Settings
+
+func _ready() -> void:
+	settings.back.connect(_on_back_pressed)
+	
 func resume():
 	get_tree().paused = false
 	$Panel.hide()
@@ -26,6 +31,7 @@ func _on_resume_pressed() -> void:
 func _on_restart_pressed() -> void:
 	resume()
 	get_tree().reload_current_scene()
+	
 
 func _on_menu_pressed() -> void:
 	resume()
@@ -33,3 +39,13 @@ func _on_menu_pressed() -> void:
 
 func _on_pause_button_pressed() -> void:
 	pause()
+
+
+func _on_settings_pressed() ->  void:
+	$Panel.hide()
+	$Settings.show()
+
+
+func _on_back_pressed() -> void:
+	$Settings.hide()
+	$Panel.show()

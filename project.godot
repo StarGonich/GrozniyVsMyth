@@ -13,7 +13,8 @@ config_version=5
 config/name="Грозный против Мифотворца"
 run/main_scene="res://UI/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.288608, 0, 0.0731193, 1)
+config/icon="res://Graphics/kerpich.png"
 
 [autoload]
 

@@ -64,11 +64,31 @@ layout_mode = 2
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Volume"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MasterVolume" type="HSlider" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+
 [node name="Back" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Back"
 
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/HBoxContainer/MasterVolume" to="." method="_on_master_volme_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_button_pressed"]
