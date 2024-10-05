@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://di5sqd0xvh65a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_24ctl"]
+radius = 23.0
+height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qdcw1"]
+radius = 23.0
+height = 52.0
+
+[node name="DamageBox" type="Node2D"]
+
+[node name="HeartBox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBox"]
+shape = SubResource("CapsuleShape2D_24ctl")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(23, 0)
+shape = SubResource("CapsuleShape2D_qdcw1")

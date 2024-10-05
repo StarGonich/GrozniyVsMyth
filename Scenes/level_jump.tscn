@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2yni2ohax6sr"]
+
+[ext_resource type="Script" path="res://Scripts/level_jump.gd" id="1_fxku7"]
+[ext_resource type="PackedScene" uid="uid://cdbeulvgtc51v" path="res://Scenes/Groznyi.tscn" id="1_lfvm3"]
+[ext_resource type="PackedScene" uid="uid://di3cslqt58t4i" path="res://Scenes/parallax_background.tscn" id="2_3kpbb"]
+[ext_resource type="PackedScene" uid="uid://4deoe01fl8ac" path="res://Scenes/Static_platform.tscn" id="2_kmvok"]
+[ext_resource type="PackedScene" uid="uid://bv3ak3j1rmqrf" path="res://Scenes/move_platform_node.tscn" id="3_cdf2u"]
+[ext_resource type="PackedScene" uid="uid://ceg5mgw18pg7r" path="res://Scenes/destroy_platform.tscn" id="4_2werm"]
+[ext_resource type="Texture2D" uid="uid://b0yankjwm6kfl" path="res://Graphics/platform.png" id="6_fbjuv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_su5lj"]
+size = Vector2(1176, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7lx2"]
+size = Vector2(59, 661)
+
+[node name="LevelJump" type="Node2D"]
+script = ExtResource("1_fxku7")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_3kpbb")]
+
+[node name="Groznyi" parent="." instance=ExtResource("1_lfvm3")]
+position = Vector2(575, 565)
+
+[node name="platform" parent="." instance=ExtResource("2_kmvok")]
+visibility_layer = 2
+position = Vector2(560, 642)
+
+[node name="platform2" parent="." instance=ExtResource("2_kmvok")]
+visibility_layer = 2
+position = Vector2(285, 533)
+
+[node name="platform3" parent="." instance=ExtResource("2_kmvok")]
+visibility_layer = 2
+position = Vector2(280, 258)
+
+[node name="MovePlatformNode" parent="." instance=ExtResource("3_cdf2u")]
+position = Vector2(873, 233)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("4_2werm")]
+position = Vector2(525, 370)
+
+[node name="DeathArea" type="Area2D" parent="."]
+position = Vector2(577, 720)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="DeathArea"]
+position = Vector2(-10, -7)
+scale = Vector2(6.53333, 1)
+texture = ExtResource("6_fbjuv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+position = Vector2(-11, -6)
+shape = SubResource("RectangleShape2D_su5lj")
+
+[node name="SpawnRock" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Granizi" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Granizi"]
+position = Vector2(-45, 332)
+shape = SubResource("RectangleShape2D_f7lx2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Granizi"]
+position = Vector2(1186, 336)
+shape = SubResource("RectangleShape2D_f7lx2")
+
+[connection signal="timeout" from="SpawnRock" to="." method="_on_spawn_rock_timeout"]

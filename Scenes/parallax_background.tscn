@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://di3cslqt58t4i"]
+
+[ext_resource type="Texture2D" uid="uid://bokwxenkla1v0" path="res://Graphics/sobor.png" id="1_h3j2x"]
+[ext_resource type="Texture2D" uid="uid://ciruhfeprqsoj" path="res://Graphics/balkiblyat.png" id="2_qb55j"]
+[ext_resource type="Texture2D" uid="uid://bqgs75ys44nac" path="res://Graphics/kolonna.png" id="8_jtvwq"]
+[ext_resource type="Texture2D" uid="uid://bblo8ygwaja8r" path="res://Graphics/palkie.png" id="12_qgb1n"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(0, 870)
+
+[node name="Fon" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(572, 216)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_h3j2x")
+
+[node name="ParallaxLayer12" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 2300)
+
+[node name="Colonna" type="Sprite2D" parent="ParallaxLayer12"]
+position = Vector2(487, 808)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("8_jtvwq")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+visibility_layer = 5
+z_index = 2
+motion_mirroring = Vector2(0, 4080)
+
+[node name="Balki" type="Sprite2D" parent="ParallaxLayer2"]
+visibility_layer = 4
+z_index = 2
+position = Vector2(614, 467)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_qb55j")
+
+[node name="ParallaxLayer11" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 3500)
+
+[node name="Palki" type="Sprite2D" parent="ParallaxLayer11"]
+position = Vector2(610, 479)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("12_qgb1n")

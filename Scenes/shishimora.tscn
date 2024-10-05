@@ -1,0 +1,161 @@
+[gd_scene load_steps=17 format=3 uid="uid://dnv8euvx054m4"]
+
+[ext_resource type="PackedScene" uid="uid://c8nkrt154qdwr" path="res://Scenes/mob.tscn" id="1_eh7n6"]
+[ext_resource type="Script" path="res://Scripts/shishimora.gd" id="2_a67kr"]
+[ext_resource type="Texture2D" uid="uid://ph2o3h375wsr" path="res://Graphics/shishimora_idle.png" id="3_oavb3"]
+[ext_resource type="Texture2D" uid="uid://c1frqqofkxrex" path="res://Graphics/shishimora_run.png" id="4_nu16q"]
+[ext_resource type="PackedScene" uid="uid://c7jbxk676cwey" path="res://Scenes/mob_health.tscn" id="5_h3euu"]
+[ext_resource type="Script" path="res://Scripts/Shishimora_health.gd" id="6_1wvix"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drm30"]
+atlas = ExtResource("3_oavb3")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88bk5"]
+atlas = ExtResource("3_oavb3")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xovoo"]
+atlas = ExtResource("3_oavb3")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lcul"]
+atlas = ExtResource("4_nu16q")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c43mc"]
+atlas = ExtResource("4_nu16q")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6jdj"]
+atlas = ExtResource("4_nu16q")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h3ssu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drm30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88bk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xovoo")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lcul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c43mc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6jdj")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 9.0
+}]
+
+[sub_resource type="Animation" id="Animation_nytnv"]
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Idle"]
+}
+
+[sub_resource type="Animation" id="Animation_6wwwr"]
+length = 0.333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.111111, 0.222222),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjpwf"]
+_data = {
+"Idle": SubResource("Animation_nytnv"),
+"Walk": SubResource("Animation_6wwwr")
+}
+
+[node name="Shishimora" instance=ExtResource("1_eh7n6")]
+script = ExtResource("2_a67kr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_h3ssu")
+animation = &"Walk"
+autoplay = "Idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_pjpwf")
+}
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(2, 1)
+
+[node name="Mob_Health" parent="." index="3" instance=ExtResource("5_h3euu")]
+position = Vector2(0, -51)
+script = ExtResource("6_1wvix")
+
+[node name="CollisionAttack" parent="Collision/AreaAttack" index="0"]
+position = Vector2(45, 0)
+
+[node name="CollisionShape2D" parent="DamageBox/HeartBox" index="0"]
+position = Vector2(3, -2)
+
+[node name="CollisionShape2D" parent="DamageBox/HitBox" index="0"]
+position = Vector2(48, 0)
+
+[connection signal="no_health" from="Mob_Health" to="." method="_on_mob_health_no_health"]
+[connection signal="received_damage" from="Mob_Health" to="." method="_on_mob_health_received_damage"]
+[connection signal="area_entered" from="DamageBox/HeartBox" to="Mob_Health" method="_on_heart_box_area_entered"]
+
+[editable path="Mob_Health"]
+[editable path="DamageBox"]

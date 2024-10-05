@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7jbxk676cwey"]
+
+[ext_resource type="Texture2D" uid="uid://ciugy8y6jxxw0" path="res://Graphics/mob_healt_empty.png" id="1_8066s"]
+[ext_resource type="Script" path="res://Scripts/mob_health.gd" id="1_ausp7"]
+[ext_resource type="Texture2D" uid="uid://baneuvifrlq23" path="res://Graphics/mob_healt_progress.png" id="2_qhvnv"]
+
+[node name="Mob_Health" type="Node2D"]
+script = ExtResource("1_ausp7")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -17.0
+offset_top = -3.0
+offset_right = 17.0
+offset_bottom = 3.0
+value = 70.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_8066s")
+texture_progress = ExtResource("2_qhvnv")
+tint_progress = Color(0.787739, 0, 0, 1)

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bv3ak3j1rmqrf"]
+
+[ext_resource type="Script" path="res://Scripts/move_platform.gd" id="1_8udte"]
+[ext_resource type="Script" path="res://Scripts/move_platform_check.gd" id="2_oc0v3"]
+[ext_resource type="Texture2D" uid="uid://r68qdx11ofhx" path="res://Graphics/platformopacity.png" id="2_yuwmj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkp0a"]
+size = Vector2(180, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fko4s"]
+size = Vector2(180, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqfif"]
+size = Vector2(180, 2)
+
+[node name="MovePlatformNode" type="Node2D"]
+
+[node name="MovePlatform" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+lock_rotation = true
+freeze = true
+script = ExtResource("1_8udte")
+
+[node name="Sprite2D" type="Sprite2D" parent="MovePlatform"]
+scale = Vector2(2.96667, 1)
+texture = ExtResource("2_yuwmj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovePlatform"]
+shape = SubResource("RectangleShape2D_dkp0a")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="MovePlatform"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovePlatform/Area2D"]
+shape = SubResource("RectangleShape2D_fko4s")
+
+[node name="Cheak_Death_Area" type="Area2D" parent="MovePlatform"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovePlatform/Cheak_Death_Area"]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_gqfif")
+
+[node name="Move_Platform_check" type="Node" parent="."]
+script = ExtResource("2_oc0v3")
+
+[connection signal="area_entered" from="MovePlatform/Area2D" to="Move_Platform_check" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="MovePlatform/Area2D" to="Move_Platform_check" method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="MovePlatform/Cheak_Death_Area" to="MovePlatform" method="_on_cheak_death_area_area_entered"]
+[connection signal="dis_call_move" from="Move_Platform_check" to="MovePlatform" method="_on_move_platform_check_dis_call_move"]
+[connection signal="show_call_move" from="Move_Platform_check" to="MovePlatform" method="_on_move_platform_check_show_call_move"]

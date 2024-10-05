@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8nkrt154qdwr"]
+
+[ext_resource type="Script" path="res://Scripts/mob.gd" id="1_qa4qj"]
+[ext_resource type="PackedScene" uid="uid://di5sqd0xvh65a" path="res://Scenes/damage_box.tscn" id="2_66nyy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ruo6p"]
+radius = 23.0
+height = 56.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uax14"]
+size = Vector2(40.5, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shb8t"]
+radius = 254.018
+
+[node name="Mob" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_qa4qj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ruo6p")
+
+[node name="Collision" type="Node2D" parent="."]
+
+[node name="AreaAttack" type="Area2D" parent="Collision"]
+collision_layer = 0
+
+[node name="CollisionAttack" type="CollisionShape2D" parent="Collision/AreaAttack"]
+position = Vector2(22, 0)
+shape = SubResource("RectangleShape2D_uax14")
+
+[node name="Detector" type="Area2D" parent="Collision"]
+collision_layer = 0
+
+[node name="DetectorCollision" type="CollisionShape2D" parent="Collision/Detector"]
+shape = SubResource("CircleShape2D_shb8t")
+
+[node name="DamageBox" parent="." instance=ExtResource("2_66nyy")]
+
+[node name="HitBox" parent="DamageBox" index="1"]
+collision_layer = 0
+
+[connection signal="body_entered" from="Collision/AreaAttack" to="." method="_on_area_attack_body_entered"]
+[connection signal="body_entered" from="Collision/Detector" to="." method="_on_detector_body_entered"]
+[connection signal="body_exited" from="Collision/Detector" to="." method="_on_detector_body_exited"]
+[connection signal="area_entered" from="DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
+
+[editable path="DamageBox"]
