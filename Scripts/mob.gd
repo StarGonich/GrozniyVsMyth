@@ -50,10 +50,13 @@ func physic_process_func(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	
 func _physics_process(delta):
 	physic_process_func(delta)
 	move_and_slide()
+	
+func _process(_delta):
+	if state == CHASE:
+		chase_state()
 	
 func idle_state():
 	animPlayer.play("Idle")
@@ -98,6 +101,8 @@ func hit_state():
 	velocity.x = 0
 	velocity.y += -100
 	velocity.x += direction_received_damage*100
+	animPlayer.play("Hit")
+	await animPlayer.animation_finished
 	state = IDLE
 		
 func death_state():

@@ -5,8 +5,8 @@ radius = 23.0
 height = 74.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qdcw1"]
-radius = 23.0
-height = 52.0
+radius = 16.0
+height = 62.0
 
 [node name="DamageBox" type="Node2D"]
 
