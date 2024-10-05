@@ -1,7 +1,8 @@
 extends MobHealth
 
+
 func ready_func():
-	max_health = 5 
+	max_health = 5
 	super.ready_func()
 
 
@@ -13,4 +14,4 @@ func _on_heart_box_area_entered(area: Area2D) -> void:
 		emit_signal("no_health")
 		health_bar.visible = false
 	else:
-		emit_signal("received_damage")
+		emit_signal("received_damage", dir_received_dmg)

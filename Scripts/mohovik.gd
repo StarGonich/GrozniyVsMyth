@@ -2,6 +2,7 @@ extends Mob
 	
 func ready_func():
 	dirRightAnim = false
+	SPEED = 100
 	super.ready_func()
 	
 
