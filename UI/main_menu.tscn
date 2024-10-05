@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://btnvi4w1vebfb"]
+
+[ext_resource type="Script" path="res://UI/main_menu.gd" id="1_mu2hm"]
+[ext_resource type="PackedScene" uid="uid://bk75xqx8i4o2m" path="res://UI/settings.tscn" id="2_f1lfk"]
+[ext_resource type="PackedScene" uid="uid://b1f04oc8eklls" path="res://UI/credits.tscn" id="3_crhi7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mu2hm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.365403, 3.66997e-07, 2.64719e-07, 1)
+
+[node name="MainMenuButtons" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 11
+
+[node name="Play" type="Button" parent="MainMenuButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="Settings" type="Button" parent="MainMenuButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="Credits" type="Button" parent="MainMenuButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+
+[node name="Exit" type="Button" parent="MainMenuButtons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="Settings" parent="." instance=ExtResource("2_f1lfk")]
+visible = false
+layout_mode = 1
+
+[node name="Credits" parent="." instance=ExtResource("3_crhi7")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainMenuButtons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Exit" to="." method="_on_exit_pressed"]

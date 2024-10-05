@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2yni2ohax6sr"]
+[gd_scene load_steps=12 format=3 uid="uid://d2yni2ohax6sr"]
 
 [ext_resource type="Script" path="res://Scripts/level_jump.gd" id="1_fxku7"]
 [ext_resource type="PackedScene" uid="uid://cdbeulvgtc51v" path="res://Scenes/Groznyi.tscn" id="1_lfvm3"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bv3ak3j1rmqrf" path="res://Scenes/move_platform_node.tscn" id="3_cdf2u"]
 [ext_resource type="PackedScene" uid="uid://ceg5mgw18pg7r" path="res://Scenes/destroy_platform.tscn" id="4_2werm"]
 [ext_resource type="Texture2D" uid="uid://b0yankjwm6kfl" path="res://Graphics/platform.png" id="6_fbjuv"]
+[ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="8_3kfur"]
+[ext_resource type="PackedScene" uid="uid://ytvvk5mt5t02" path="res://UI/lose_menu.tscn" id="9_8xjfh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_su5lj"]
 size = Vector2(1176, 20)
@@ -68,5 +70,12 @@ shape = SubResource("RectangleShape2D_f7lx2")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Granizi"]
 position = Vector2(1186, 336)
 shape = SubResource("RectangleShape2D_f7lx2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_3kfur")]
+
+[node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("9_8xjfh")]
+visible = false
 
 [connection signal="timeout" from="SpawnRock" to="." method="_on_spawn_rock_timeout"]
