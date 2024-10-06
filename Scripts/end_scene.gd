@@ -50,8 +50,10 @@ func anim():
 	$Scene.scale.y = 1
 	$Scene.texture = load("res://Graphics/end_scene1.png")
 	await get_tree().create_timer(3.5).timeout
+	$Panel3.visible = true
 	$Scene.texture = load("res://Graphics/end_scene2.png")
 	await get_tree().create_timer(3.5).timeout
+	$Panel3.visible = false
 	$Scene.texture = load("res://Graphics/end_scene3.png")
 	await get_tree().create_timer(2.5).timeout
 	$Groznui.freeze = false

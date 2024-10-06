@@ -12,8 +12,6 @@ func ready_func():
 	$Panel/Label.text = "Леший: Лес в тебе разочарован."
 	super.ready_func()
 	spawnEnemies(self.position.x)
-	await get_tree().create_timer(3.0).timeout
-	$Panel.visible = false
 
 func spawnEnemies(coords):
 	var enemy

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2yni2ohax6sr"]
+[gd_scene load_steps=13 format=3 uid="uid://d2yni2ohax6sr"]
 
 [ext_resource type="Script" path="res://Scripts/level_jump.gd" id="1_fxku7"]
 [ext_resource type="PackedScene" uid="uid://cdbeulvgtc51v" path="res://Scenes/Groznyi.tscn" id="1_lfvm3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b0yankjwm6kfl" path="res://Graphics/platform.png" id="6_fbjuv"]
 [ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="8_3kfur"]
 [ext_resource type="PackedScene" uid="uid://ytvvk5mt5t02" path="res://UI/lose_menu.tscn" id="9_8xjfh"]
+[ext_resource type="AudioStream" uid="uid://c8gqm7fd10a2" path="res://Musicc/muzlo.mp3" id="9_gld4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5lb2"]
 size = Vector2(1182, 46.5)
@@ -84,6 +85,9 @@ shape = SubResource("RectangleShape2D_f7lx2")
 [node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("9_8xjfh")]
 process_mode = 2
 visible = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_gld4p")
 
 [connection signal="clear_platform" from="Groznyi" to="." method="_on_groznyi_clear_platform"]
 [connection signal="timeout" from="SpawnRock" to="." method="_on_spawn_rock_timeout"]

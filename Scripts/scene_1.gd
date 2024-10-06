@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var label: Label = $Panel/CenterContainer/Label
+@onready var label: Label = $Panel/Panel/Label
 @onready var timer: Timer = $Timer
 
 var letter_index = 0

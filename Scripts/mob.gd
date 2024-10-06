@@ -42,7 +42,10 @@ var state: int = 0:
 
 func ready_func():
 	Signals.connect("player_update_position", Callable(self, "_on_player_update_position"))
-
+	await get_tree().create_timer(5.0).timeout
+	$Panel.visible = false
+	
+	
 func _ready():
 	ready_func()
 
@@ -98,6 +101,7 @@ func chase_state():
 		animPlayer.play("Walk")
 		
 func hit_state():
+	$DamageBox/HitBox/CollisionShape2D.disabled = true
 	velocity.x = 0
 	velocity.y += -100
 	velocity.x += direction_received_damage*100
@@ -107,6 +111,7 @@ func hit_state():
 	state = IDLE
 		
 func death_state():
+	$DamageBox/HitBox/CollisionShape2D.disabled = true
 	velocity.x = 0
 	alive = false
 	$Collision/AreaAttack/CollisionAttack.set_deferred("disabled", true)
