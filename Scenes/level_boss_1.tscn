@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc8ifufjja6kf"]
+[gd_scene load_steps=12 format=3 uid="uid://dc8ifufjja6kf"]
 
 [ext_resource type="Script" path="res://Scripts/level_boss_1.gd" id="1_cain2"]
 [ext_resource type="PackedScene" uid="uid://tlmgsasq1sj4" path="res://Scenes/parallax_background_boss1.tscn" id="1_w144x"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c4moer1nekytc" path="res://Scenes/health_groznogo.tscn" id="5_t0d2p"]
 [ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="6_nkdeg"]
 [ext_resource type="PackedScene" uid="uid://ytvvk5mt5t02" path="res://UI/lose_menu.tscn" id="7_m0ks1"]
+[ext_resource type="AudioStream" uid="uid://dc5h6yff1kp2b" path="res://Music/эпикч.mp3" id="8_jgxs6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvgo2"]
 size = Vector2(3090.5, 78)
@@ -53,6 +54,10 @@ position = Vector2(1574, 471)
 [node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("7_m0ks1")]
 process_mode = 2
 visible = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_jgxs6")
+autoplay = true
 
 [connection signal="change_health" from="GroznuiFait" to="." method="_on_groznui_fait_change_health"]
 

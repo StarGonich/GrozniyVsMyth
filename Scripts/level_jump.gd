@@ -8,9 +8,9 @@ var palka = preload("res://Scenes/plaka.tscn")
 
 var spawn = false
 
-var first_point = -500
+var first_point = -4500
 var second_point = -8500
-var end_point = -10000
+var end_point = -12000
 
 var point
 
