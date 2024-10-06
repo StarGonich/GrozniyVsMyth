@@ -2,7 +2,7 @@ extends Control
 
 @onready var settings = $Settings
 @onready var credits = $Credits
-@onready var main_menu_buttons = $MainMenuButtons as VBoxContainer
+@onready var main_menu_buttons = $VBoxContainer/MainMenuButtons as VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,16 +20,19 @@ func _on_play_pressed() -> void:
 
 
 func _on_settings_pressed() -> void:
+	$VBoxContainer/Label.hide()
 	main_menu_buttons.visible = false
 	settings.visible = true
 
 
 func _on_credits_pressed() -> void:
+	$VBoxContainer/Label.hide()
 	main_menu_buttons.visible = false
 	credits.visible = true
 
 
 func _on_back_pressed() -> void:
+	$VBoxContainer/Label.show()
 	settings.visible = false
 	credits.visible = false
 	main_menu_buttons.visible = true

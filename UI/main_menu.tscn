@@ -36,37 +36,54 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.365403, 3.66997e-07, 2.64719e-07, 1)
 
-[node name="MainMenuButtons" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(400, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -450.5
+offset_top = -218.5
+offset_right = 450.5
+offset_bottom = 218.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Иван Грозный против Мифотворца"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MainMenuButtons" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 11
 
-[node name="Play" type="Button" parent="MainMenuButtons"]
+[node name="Play" type="Button" parent="VBoxContainer/MainMenuButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[node name="Settings" type="Button" parent="MainMenuButtons"]
+[node name="Settings" type="Button" parent="VBoxContainer/MainMenuButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 
-[node name="Credits" type="Button" parent="MainMenuButtons"]
+[node name="Credits" type="Button" parent="VBoxContainer/MainMenuButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Credits"
 
-[node name="Exit" type="Button" parent="MainMenuButtons"]
+[node name="Exit" type="Button" parent="VBoxContainer/MainMenuButtons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -84,7 +101,7 @@ layout_mode = 1
 stream = ExtResource("4_m6qll")
 autoplay = true
 
-[connection signal="pressed" from="MainMenuButtons/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MainMenuButtons/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MainMenuButtons/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="MainMenuButtons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButtons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButtons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButtons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButtons/Exit" to="." method="_on_exit_pressed"]

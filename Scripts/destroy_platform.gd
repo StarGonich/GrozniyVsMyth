@@ -1,9 +1,10 @@
 extends StaticBody2D
 
-@onready var anim = $AnimatedSprite2D
+@onready var animPlayer= $AnimationPlayer
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	await get_tree().create_timer(1.0).timeout
+	animPlayer.play("Death")
+	await animPlayer.animation_finished
 	$Area2D/CollisionShape2D.disabled = true
 	$Player_check/CollisionShape2D.disabled = true
 	hide()
