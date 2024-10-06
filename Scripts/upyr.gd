@@ -5,8 +5,6 @@ func ready_func():
 	SPEED = 120
 	$Panel/Label.text = "Водяной упырь: Свежая кровь! сладкая, свежая кровь! Я уже чувствую, как жизнь переполняет меня!"
 	super.ready_func()
-	await get_tree().create_timer(3.0).timeout
-	$Panel.visible = false
 
 func physic_process_func(delta):
 	if state != ATTACK1:

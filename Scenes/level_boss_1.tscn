@@ -43,10 +43,6 @@ position = Vector2(1107, 490)
 
 [node name="Health" parent="." instance=ExtResource("5_t0d2p")]
 
-[node name="HealthBar" parent="Health" index="0"]
-tint_over = Color(0.882353, 0.709804, 0.258824, 1)
-tint_progress = Color(0.85549, 0, 0.0663113, 1)
-
 [node name="Leshiy" parent="." instance=ExtResource("5_711g7")]
 position = Vector2(1574, 471)
 

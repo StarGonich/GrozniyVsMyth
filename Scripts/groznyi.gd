@@ -36,9 +36,9 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("JUMP"):
 				if is_on_floor() || not coyotTimer.is_stopped():
 					velocity.y = JUMP_VELOCITY
-					anim.play("JumpStart")
+					animPlayer.play("JumpStart")
 			if velocity.y > 0:
-				anim.play("Fall")
+				animPlayer.play("Fall")
 		
 		if not is_on_floor() and not death:
 			if velocity.y < 1000:
@@ -60,11 +60,11 @@ func move_state():
 	if direction:
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
-			anim.play("Run")
+			animPlayer.play("Run")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
-			anim.play("Idle")
+			animPlayer.play("Idle")
 	
 	if direction == -1:
 		$AnimatedSprite2D.flip_h = true
@@ -85,8 +85,8 @@ func _on_check_palka_body_entered(body: Node2D) -> void:
 	get_tree().paused = true
 	velocity.y = 0
 	velocity.x = 0
-	anim.play("Death")
-	await anim.animation_finished
+	animPlayer.play("Death")
+	await animPlayer.animation_finished
 	emit_signal("clear_platform")
 	match GlobalScene.cur_point:
 		2:

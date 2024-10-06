@@ -13,22 +13,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+[node name="Panel" type="Panel" parent="Panel"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -246.0
-offset_top = -110.0
-offset_right = 246.0
-offset_bottom = 48.0
+offset_left = -290.0
+offset_top = -114.0
+offset_right = 290.0
+offset_bottom = 114.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel/CenterContainer"]
-layout_mode = 2
+[node name="Label" type="Label" parent="Panel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_linmg")
 theme_override_font_sizes/font_size = 22
@@ -36,6 +42,8 @@ text = "Что-то я перемудрил с этими шишиморами,
 	как будто это кто-то больной писал, 
 	жизнь творца настолько тяжелая и непонятная, 
 	что мне остается разве что молиться."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 

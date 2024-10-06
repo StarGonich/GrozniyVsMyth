@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bhci4pd85xqr4"]
+[gd_scene load_steps=66 format=3 uid="uid://bhci4pd85xqr4"]
 
 [ext_resource type="Script" path="res://Scripts/groznui_fait.gd" id="1_ydk80"]
 [ext_resource type="Texture2D" uid="uid://cuw0l7ck4hoar" path="res://Graphics/GroznuiMove.png" id="2_04yp8"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://di5sqd0xvh65a" path="res://Scenes/damage_box.tscn" id="6_kih6y"]
 [ext_resource type="Texture2D" uid="uid://3r5p2nviflk7" path="res://Graphics/Groznui_idle_water.png" id="7_b4swa"]
 [ext_resource type="Texture2D" uid="uid://5417t8aeaoxl" path="res://Graphics/groznui_run_water.png" id="8_5o5g4"]
+[ext_resource type="AudioStream" uid="uid://bswr7m7dhki55" path="res://Musicc/Kick.mp3" id="9_ril4o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfxfw"]
 atlas = ExtResource("2_bfu6j")
@@ -392,6 +393,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_ril4o")
+}],
+"times": PackedFloat32Array(0.182052)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_nb0tj"]
 length = 2.0
@@ -829,7 +845,7 @@ script = ExtResource("1_ydk80")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_0u62c")
-animation = &"Run"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="AnimatedSprite2DWater" type="AnimatedSprite2D" parent="."]
@@ -875,6 +891,8 @@ collision_mask = 128
 position = Vector2(53, 1)
 shape = SubResource("CapsuleShape2D_333f8")
 disabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_entered" from="DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
 

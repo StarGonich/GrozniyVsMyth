@@ -8,7 +8,7 @@ var palka = preload("res://Scenes/plaka.tscn")
 
 var spawn = false
 
-var first_point = -4500
+var first_point = -500
 var second_point = -8500
 var end_point = -10000
 
@@ -39,7 +39,7 @@ var platforms = []
 var clear = false
 
 func _ready() -> void:
-	
+	$AudioStreamPlayer2D.play()
 	match GlobalScene.cur_point:
 		1: 
 			point = first_point
