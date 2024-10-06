@@ -1,6 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dc8ifufjja6kf"]
-
 [ext_resource type="Script" path="res://Scripts/level_boss_1.gd" id="1_cain2"]
+[ext_resource type="AudioStream" uid="uid://dc5h6yff1kp2b" path="res://Music/эпикч.mp3" id="1_hbk73"]
+[ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="1_u3e8r"]
 [ext_resource type="PackedScene" uid="uid://tlmgsasq1sj4" path="res://Scenes/parallax_background_boss1.tscn" id="1_w144x"]
 [ext_resource type="PackedScene" uid="uid://bhci4pd85xqr4" path="res://Scenes/groznui_fait.tscn" id="2_hhq5y"]
 [ext_resource type="PackedScene" uid="uid://dlkndvjbc8sut" path="res://Scenes/leshiy.tscn" id="5_711g7"]
@@ -19,6 +20,10 @@ size = Vector2(80, 571.75)
 
 [node name="Level_Boss1" type="Node2D"]
 script = ExtResource("1_cain2")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_hbk73")
+autoplay = true
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_w144x")]
 
@@ -61,3 +66,10 @@ visible = false
 [connection signal="change_health" from="GroznuiFait" to="." method="_on_groznui_fait_change_health"]
 
 [editable path="Health"]
+[node name="Shishimora" parent="." instance=ExtResource("4_2hxid")]
+position = Vector2(1630, 507)
+collision_layer = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("1_u3e8r")]

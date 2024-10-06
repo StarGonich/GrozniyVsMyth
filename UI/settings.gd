@@ -2,7 +2,9 @@ extends Control
 
 @onready var option_button = $VBoxContainer/VBoxContainer/ScreenMode/OptionButton as OptionButton
 @onready var option_button2 = $VBoxContainer/VBoxContainer/Resolution/OptionButton as OptionButton
+@onready var master_volume = $VBoxContainer/VBoxContainer/HBoxContainer/MasterVolume as HSlider
 
+var bus_index: int
 
 const WINDOW_MODE_ARRAY: Array[String] = [
 	"Full-Screen",
@@ -27,7 +29,9 @@ func _ready() -> void:
 		option_button2.add_item(resolution)
 	option_button.item_selected.connect(on_window_mode_selected)
 	option_button2.item_selected.connect(on_resolution_selected)
-
+	
+	bus_index = AudioServer.get_bus_index("Master")
+	master_volume.value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
 
 func on_window_mode_selected(index : int) -> void:
 	match index:
@@ -52,3 +56,7 @@ func on_resolution_selected(index: int) -> void:
 signal back
 func _on_back_pressed() -> void:
 	back.emit()
+
+
+func _on_master_volme_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))

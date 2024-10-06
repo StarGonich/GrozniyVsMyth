@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://btnvi4w1vebfb"]
+[gd_scene load_steps=6 format=3 uid="uid://btnvi4w1vebfb"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_mu2hm"]
+[ext_resource type="Texture2D" uid="uid://cnt2gtc1c0ny8" path="res://Graphics/fon12.png" id="2_5cxef"]
 [ext_resource type="PackedScene" uid="uid://bk75xqx8i4o2m" path="res://UI/settings.tscn" id="2_f1lfk"]
 [ext_resource type="PackedScene" uid="uid://b1f04oc8eklls" path="res://UI/credits.tscn" id="3_crhi7"]
+[ext_resource type="AudioStream" uid="uid://jpybt7h7v15p" path="res://Music/freemusicbg.com-Crunk Knight.mp3" id="4_m6qll"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +15,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mu2hm")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -768.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_5cxef")
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,6 +79,10 @@ layout_mode = 1
 [node name="Credits" parent="." instance=ExtResource("3_crhi7")]
 visible = false
 layout_mode = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_m6qll")
+autoplay = true
 
 [connection signal="pressed" from="MainMenuButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Settings" to="." method="_on_settings_pressed"]

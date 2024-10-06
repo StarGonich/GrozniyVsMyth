@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7o62smjwnem2"]
+[gd_scene load_steps=3 format=3 uid="uid://b7o62smjwnem2"]
 
 [ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_b7cb7"]
+[ext_resource type="PackedScene" uid="uid://bk75xqx8i4o2m" path="res://UI/settings.tscn" id="2_nmxbj"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -69,13 +70,24 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Restart"
 
+[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
 [node name="Menu" type="Button" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
+[node name="Settings" parent="." instance=ExtResource("2_nmxbj")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
