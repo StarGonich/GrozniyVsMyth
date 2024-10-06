@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8nkrt154qdwr"]
+[gd_scene load_steps=7 format=3 uid="uid://c8nkrt154qdwr"]
 
 [ext_resource type="Script" path="res://Scripts/mob.gd" id="1_qa4qj"]
+[ext_resource type="FontFile" uid="uid://bd0to8r33qdxv" path="res://Fonts/EpilepsySans.ttf" id="2_4tryl"]
 [ext_resource type="PackedScene" uid="uid://di5sqd0xvh65a" path="res://Scenes/damage_box.tscn" id="2_66nyy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ruo6p"]
-radius = 23.0
-height = 96.0
+radius = 31.0
+height = 120.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uax14"]
 size = Vector2(40.5, 44)
@@ -17,6 +18,26 @@ radius = 254.018
 collision_layer = 512
 collision_mask = 2
 script = ExtResource("1_qa4qj")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -214.0
+offset_top = -140.0
+offset_right = -9.0
+offset_bottom = -81.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_4tryl")
+theme_override_font_sizes/font_size = 22
+text = "Леший: лес в тебе разочарован "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ruo6p")

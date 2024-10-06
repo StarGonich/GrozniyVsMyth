@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://c0j0xfw5a3eq"]
+
+[ext_resource type="Texture2D" uid="uid://b3t3gj0r7uosr" path="res://Graphics/volna.png" id="1_hl3if"]
+[ext_resource type="Script" path="res://Scripts/wave.gd" id="1_tr8l3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2htsj"]
+radius = 16.0
+height = 55.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axjcv"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit0x"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20odl"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_557cm"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvc6v"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kijs4"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqxq0"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pveha"]
+atlas = ExtResource("1_hl3if")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8og8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axjcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hit0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20odl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_557cm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvc6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kijs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqxq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pveha")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_dfw7f"]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Attack"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.307881, 0.499395),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_fpxux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkwot"]
+_data = {
+"Attack": SubResource("Animation_dfw7f"),
+"RESET": SubResource("Animation_fpxux")
+}
+
+[node name="Wave" type="Area2D"]
+collision_layer = 256
+collision_mask = 32
+script = ExtResource("1_tr8l3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2htsj")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1)
+sprite_frames = SubResource("SpriteFrames_c8og8")
+animation = &"Attack"
+frame = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xkwot")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

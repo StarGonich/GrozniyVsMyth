@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://jso3j7yi2s3"]
+[gd_scene load_steps=41 format=3 uid="uid://jso3j7yi2s3"]
 
 [ext_resource type="PackedScene" uid="uid://c8nkrt154qdwr" path="res://Scenes/mob.tscn" id="1_7l8li"]
 [ext_resource type="Script" path="res://Scripts/mohovik.gd" id="2_wm4kr"]
@@ -44,6 +44,10 @@ region = Rect2(887, 48, 120, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pdt8x"]
 atlas = ExtResource("3_wtew0")
 region = Rect2(1088, 64, 60, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ymlf"]
+atlas = ExtResource("4_n0ayo")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkw1d"]
 atlas = ExtResource("4_n0ayo")
@@ -114,6 +118,14 @@ animations = [{
 "loop": false,
 "name": &"Attack1",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ymlf")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -197,8 +209,35 @@ tracks/2/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_cquri"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Death"]
+}
+
 [sub_resource type="Animation" id="Animation_o0jda"]
-length = 0.7
+length = 0.333333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -298,6 +337,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kwu6n"]
 _data = {
 "Attack1": SubResource("Animation_kfwpc"),
+"Death": SubResource("Animation_cquri"),
 "Hit": SubResource("Animation_o0jda"),
 "Idle": SubResource("Animation_7nibp"),
 "RESET": SubResource("Animation_siq2t"),
@@ -308,12 +348,26 @@ _data = {
 radius = 23.0
 height = 64.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_margu"]
+size = Vector2(29.125, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3nk0e"]
+radius = 411.011
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ro5be"]
+radius = 23.0
+height = 88.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_118aj"]
+radius = 17.0
+height = 46.0
+
 [node name="Mohovik" instance=ExtResource("1_7l8li")]
 script = ExtResource("2_wm4kr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_se6px")
-animation = &"Hit"
+animation = &"Death"
 autoplay = "Idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -325,15 +379,30 @@ libraries = {
 position = Vector2(0, -34)
 script = ExtResource("7_o15tx")
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="Panel" parent="." index="3"]
+offset_left = -103.0
+offset_top = -106.0
+offset_right = 102.0
+offset_bottom = -47.0
+
+[node name="CollisionShape2D" parent="." index="4"]
+visible = false
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_3u6op")
 
 [node name="CollisionAttack" parent="Collision/AreaAttack" index="0"]
-position = Vector2(46, 0)
+position = Vector2(41.4375, 0)
+shape = SubResource("RectangleShape2D_margu")
+
+[node name="DetectorCollision" parent="Collision/Detector" index="0"]
+shape = SubResource("CircleShape2D_3nk0e")
+
+[node name="CollisionShape2D" parent="DamageBox/HeartBox" index="0"]
+shape = SubResource("CapsuleShape2D_ro5be")
 
 [node name="CollisionShape2D" parent="DamageBox/HitBox" index="0"]
-position = Vector2(42, -25)
+position = Vector2(42, -30)
+shape = SubResource("CapsuleShape2D_118aj")
 disabled = true
 
 [connection signal="no_health" from="Mob_Health" to="." method="_on_mob_health_no_health"]

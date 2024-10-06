@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp56vakvctnpi"]
+
+[ext_resource type="Texture2D" uid="uid://dil5cifxw4w5a" path="res://Graphics/palka.png" id="1_j8koo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6cl4r"]
+size = Vector2(1110, 20)
+
+[node name="Palka" type="RigidBody2D"]
+collision_layer = 1024
+gravity_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6cl4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-201, -325)
+scale = Vector2(1.95117, 1.13802)
+texture = ExtResource("1_j8koo")

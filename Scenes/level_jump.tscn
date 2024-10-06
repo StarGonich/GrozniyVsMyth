@@ -5,10 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://di3cslqt58t4i" path="res://Scenes/parallax_background.tscn" id="2_3kpbb"]
 [ext_resource type="PackedScene" uid="uid://4deoe01fl8ac" path="res://Scenes/Static_platform.tscn" id="2_kmvok"]
 [ext_resource type="PackedScene" uid="uid://bv3ak3j1rmqrf" path="res://Scenes/move_platform_node.tscn" id="3_cdf2u"]
-[ext_resource type="PackedScene" uid="uid://ceg5mgw18pg7r" path="res://Scenes/destroy_platform.tscn" id="4_2werm"]
 [ext_resource type="Texture2D" uid="uid://b0yankjwm6kfl" path="res://Graphics/platform.png" id="6_fbjuv"]
 [ext_resource type="PackedScene" uid="uid://b7o62smjwnem2" path="res://UI/pause_menu.tscn" id="8_3kfur"]
 [ext_resource type="PackedScene" uid="uid://ytvvk5mt5t02" path="res://UI/lose_menu.tscn" id="9_8xjfh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5lb2"]
+size = Vector2(1182, 46.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_su5lj"]
 size = Vector2(1176, 20)
@@ -21,26 +23,30 @@ script = ExtResource("1_fxku7")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("2_3kpbb")]
 
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(577, 669.25)
+shape = SubResource("RectangleShape2D_p5lb2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor"]
+position = Vector2(578, 670.5)
+scale = Vector2(6.51111, 2.35)
+texture = ExtResource("6_fbjuv")
+
 [node name="Groznyi" parent="." instance=ExtResource("1_lfvm3")]
 position = Vector2(575, 565)
 
-[node name="platform" parent="." instance=ExtResource("2_kmvok")]
-visibility_layer = 2
-position = Vector2(560, 642)
-
 [node name="platform2" parent="." instance=ExtResource("2_kmvok")]
 visibility_layer = 2
-position = Vector2(285, 533)
+position = Vector2(254, 485)
 
 [node name="platform3" parent="." instance=ExtResource("2_kmvok")]
 visibility_layer = 2
-position = Vector2(280, 258)
+position = Vector2(510, 334)
 
 [node name="MovePlatformNode" parent="." instance=ExtResource("3_cdf2u")]
 position = Vector2(873, 233)
-
-[node name="StaticBody2D" parent="." instance=ExtResource("4_2werm")]
-position = Vector2(525, 370)
 
 [node name="DeathArea" type="Area2D" parent="."]
 position = Vector2(577, 720)
@@ -76,6 +82,8 @@ shape = SubResource("RectangleShape2D_f7lx2")
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_3kfur")]
 
 [node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("9_8xjfh")]
+process_mode = 2
 visible = false
 
+[connection signal="clear_platform" from="Groznyi" to="." method="_on_groznyi_clear_platform"]
 [connection signal="timeout" from="SpawnRock" to="." method="_on_spawn_rock_timeout"]
