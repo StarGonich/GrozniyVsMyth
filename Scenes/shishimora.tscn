@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dnv8euvx054m4"]
+[gd_scene load_steps=36 format=3 uid="uid://dnv8euvx054m4"]
 
 [ext_resource type="PackedScene" uid="uid://c8nkrt154qdwr" path="res://Scenes/mob.tscn" id="1_eh7n6"]
 [ext_resource type="Script" path="res://Scripts/shishimora.gd" id="2_a67kr"]
@@ -32,6 +32,10 @@ region = Rect2(256, 0, 64, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qpufy"]
 atlas = ExtResource("3_jvdyy")
 region = Rect2(320, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6rvq"]
+atlas = ExtResource("4_k3tf0")
+region = Rect2(0, 0, 64, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivcp1"]
 atlas = ExtResource("4_k3tf0")
@@ -92,6 +96,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_i6rvq")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ivcp1")
 }, {
 "duration": 1.0,
@@ -131,6 +143,7 @@ animations = [{
 }]
 
 [sub_resource type="Animation" id="Animation_5cmei"]
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -168,8 +181,35 @@ tracks/2/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_65dng"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Death"]
+}
+
 [sub_resource type="Animation" id="Animation_bieud"]
-length = 0.7
+length = 0.333333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -223,6 +263,21 @@ tracks/1/keys = {
 "values": ["Idle"]
 }
 
+[sub_resource type="Animation" id="Animation_koe61"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_6wwwr"]
 length = 0.333333
 loop_mode = 1
@@ -251,24 +306,10 @@ tracks/1/keys = {
 "values": ["Walk"]
 }
 
-[sub_resource type="Animation" id="Animation_koe61"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DamageBox/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pjpwf"]
 _data = {
 "Attack1": SubResource("Animation_5cmei"),
+"Death": SubResource("Animation_65dng"),
 "Hit": SubResource("Animation_bieud"),
 "Idle": SubResource("Animation_nytnv"),
 "RESET": SubResource("Animation_koe61"),
@@ -279,12 +320,22 @@ _data = {
 radius = 23.0
 height = 96.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2i2t"]
+size = Vector2(25, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mq2p0"]
+radius = 442.001
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4gyf"]
+radius = 13.0
+height = 56.0
+
 [node name="Shishimora" instance=ExtResource("1_eh7n6")]
 script = ExtResource("2_a67kr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_h3ssu")
-animation = &"Idle"
+animation = &"Attack1"
 autoplay = "Idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -292,22 +343,33 @@ libraries = {
 "": SubResource("AnimationLibrary_pjpwf")
 }
 
-[node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(2, -5)
-shape = SubResource("CapsuleShape2D_unhmd")
+[node name="Panel" parent="." index="2"]
+offset_left = -110.0
+offset_top = -134.0
+offset_right = 111.0
+offset_bottom = -57.0
 
 [node name="Mob_Health" parent="." index="3" instance=ExtResource("5_h3euu")]
 position = Vector2(0, -51)
 script = ExtResource("6_1wvix")
 
+[node name="CollisionShape2D" parent="." index="4"]
+position = Vector2(2, -5)
+shape = SubResource("CapsuleShape2D_unhmd")
+
 [node name="CollisionAttack" parent="Collision/AreaAttack" index="0"]
-position = Vector2(49, 0)
+position = Vector2(42.5, -1)
+shape = SubResource("RectangleShape2D_y2i2t")
+
+[node name="DetectorCollision" parent="Collision/Detector" index="0"]
+shape = SubResource("CircleShape2D_mq2p0")
 
 [node name="CollisionShape2D" parent="DamageBox/HeartBox" index="0"]
 position = Vector2(3, -2)
 
 [node name="CollisionShape2D" parent="DamageBox/HitBox" index="0"]
-position = Vector2(45, -12)
+position = Vector2(42, -15)
+shape = SubResource("CapsuleShape2D_p4gyf")
 disabled = true
 
 [connection signal="no_health" from="Mob_Health" to="." method="_on_mob_health_no_health"]

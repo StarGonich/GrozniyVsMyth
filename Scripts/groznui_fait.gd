@@ -12,10 +12,12 @@ enum{
 @onready var coyotTimer = $CoyotTimer
 @onready var anim = $AnimatedSprite2D
 @onready var animPlayer = $AnimationPlayer
+@onready var animPlayerWater = $AnimationPlayerWater
 
 var health = 15
 var max_health = 15
 var damage = 1
+var death = false
 
 var SPEED = 250
 var JUMP_VELOCITY = -450
@@ -37,6 +39,13 @@ var state: int = 0:
 				death_state()
 
 func _ready():
+	if GlobalScene.lokation == 2:
+		animPlayer = animPlayerWater
+	else:
+		anim.visible = true
+		$AnimatedSprite2DWater.visible = false
+		
+	get_tree().paused = false
 	Signals.connect("enemy_attack", Callable(self, "_on_enemy_damage_received"))
 
 func _physics_process(delta: float) -> void:
@@ -69,11 +78,13 @@ func _physics_process(delta: float) -> void:
 func inverse_sprite():
 	if direction == -1:
 		$AnimatedSprite2D.flip_h = true
-		$AnimatedSprite2D.offset.x = -12
+		$AnimatedSprite2DWater.flip_h = true
+		#$AnimatedSprite2D.offset.x = -12
 		$DamageBox.scale.x = -1
 	elif direction == 1:
 		$AnimatedSprite2D.flip_h = false
-		$AnimatedSprite2D.offset.x = 0
+		$AnimatedSprite2DWater.flip_h = false
+		#$AnimatedSprite2D.offset.x = 0
 		$DamageBox.scale.x = 1
 	
 
@@ -102,6 +113,7 @@ func attack_state():
 
 
 func hit_state():
+	$DamageBox/HitBox/CollisionShape2D.set_deferred("disabled", true)
 	coyotTimer.stop()
 	animPlayer.play("Hit")
 	await get_tree().create_timer(0.1).timeout
@@ -115,18 +127,16 @@ func death_state():
 	velocity.x = 0
 	animPlayer.play("Death")
 	await animPlayer.animation_finished
-	queue_free()
+	death = true
 	
-
 func _on_check_death_area_area_entered(area: Area2D) -> void:
 	queue_free()
-	
 	
 func _on_enemy_damage_received(enemy_damage):
 	health -= enemy_damage
 	if health <= 0:
 		health = 0
-		#state = DEATH
+		state = DEATH
 	else:
 		pass
 		state = HIT

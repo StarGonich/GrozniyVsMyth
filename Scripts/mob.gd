@@ -103,17 +103,18 @@ func hit_state():
 	velocity.x += direction_received_damage*100
 	animPlayer.play("Hit")
 	await animPlayer.animation_finished
+	velocity.x = 0
 	state = IDLE
 		
 func death_state():
-	pass
-	#velocity.x = 0
-	#alive = false
-	#$Collision/AreaAttack/CollisionAttack.set_deferred("disabled", true)
-	#$Collision/Detector/DetectorCollision.set_deferred("disabled", true)
-	#animPlayer.play("Death")
-	#await animPlayer.animation_finished
+	velocity.x = 0
+	alive = false
+	$Collision/AreaAttack/CollisionAttack.set_deferred("disabled", true)
+	$Collision/Detector/DetectorCollision.set_deferred("disabled", true)
+	animPlayer.play("Death")
+	await animPlayer.animation_finished
 	#queue_free()
+	hide()
 
 func _on_player_update_position(player_pos):
 	player = player_pos

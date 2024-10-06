@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhymgxrfplnja"]
+
+[ext_resource type="Script" path="res://Scripts/scene_1.gd" id="1_0we0j"]
+[ext_resource type="FontFile" uid="uid://bd0to8r33qdxv" path="res://Fonts/EpilepsySans.ttf" id="2_linmg"]
+
+[node name="Scene1" type="CanvasLayer"]
+script = ExtResource("1_0we0j")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -110.0
+offset_right = 246.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_linmg")
+theme_override_font_sizes/font_size = 22
+text = "Что-то я перемудрил с этими шишиморами, 
+	как будто это кто-то больной писал, 
+	жизнь творца настолько тяжелая и непонятная, 
+	что мне остается разве что молиться."
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3 uid="uid://j5xy73483e60"]
+
+[ext_resource type="Script" path="res://Scripts/end_scene.gd" id="1_2fa0f"]
+[ext_resource type="Texture2D" uid="uid://0r7ni8qmtjym" path="res://Graphics/scene1.png" id="2_cogxc"]
+[ext_resource type="Texture2D" uid="uid://cq6f8sxer8ris" path="res://Graphics/GroznuiJump.png" id="2_ivwyu"]
+[ext_resource type="FontFile" uid="uid://bd0to8r33qdxv" path="res://Fonts/EpilepsySans.ttf" id="4_7vk8w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cccmn"]
+atlas = ExtResource("2_ivwyu")
+region = Rect2(256, 11, 64, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kpqkm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cccmn")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o40w8"]
+radius = 40.0
+height = 212.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2noi8"]
+size = Vector2(52, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrg7u"]
+size = Vector2(118, 24)
+
+[node name="End_scene" type="CanvasLayer"]
+script = ExtResource("1_2fa0f")
+
+[node name="Scene" type="Sprite2D" parent="."]
+position = Vector2(575, 324.5)
+scale = Vector2(1.12891, 0.834635)
+texture = ExtResource("2_cogxc")
+
+[node name="Panel2" type="Panel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.0
+offset_top = 2.0
+offset_right = 236.0
+offset_bottom = 153.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Что-то я перемудрил с этими шишиморами, 
+	как будто это кто-то больной писал, жизнь творца настолько тяжелая и 
+	непонятная, что мне остается разве что молиться"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Groznui" type="RigidBody2D" parent="."]
+position = Vector2(568, -1213)
+collision_mask = 2
+mass = 10.0
+gravity_scale = 2.0
+lock_rotation = true
+freeze = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Groznui"]
+scale = Vector2(-1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_kpqkm")
+animation = &"Fall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groznui"]
+shape = SubResource("CapsuleShape2D_o40w8")
+
+[node name="Check_Ground" type="Area2D" parent="Groznui"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groznui/Check_Ground"]
+position = Vector2(0, 114)
+shape = SubResource("RectangleShape2D_2noi8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(566, 557)
+shape = SubResource("RectangleShape2D_mrg7u")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -173.0
+offset_right = 122.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -38.0
+offset_right = 20.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_7vk8w")
+theme_override_font_sizes/font_size = 40
+text = "Конец!!!"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = 15.0
+offset_right = 30.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_7vk8w")
+theme_override_font_sizes/font_size = 30
+text = "Выход"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Groznui/Check_Ground" to="." method="_on_check_ground_body_entered"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
